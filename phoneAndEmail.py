@@ -1,4 +1,4 @@
-#! /usr/bin/python3.7
+    #! /usr/bin/python3.7
 '''finds phone numbers and email adresses from the clipboard'''
 
 import pyperclip, re
