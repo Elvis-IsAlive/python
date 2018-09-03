@@ -1,0 +1,100 @@
+Question 1: A Albany
+
+Question 2: A Phoenix
+
+Question 3: D Carson City
+
+Question 4: D Oklahoma City
+
+Question 5: B Atlanta
+
+Question 6: B Richmond
+
+Question 7: C Cheyenne
+
+Question 8: B Concord
+
+Question 9: B Honolulu
+
+Question 10: B Hartford
+
+Question 11: D Springfield
+
+Question 12: B Jefferson City
+
+Question 13: A Salt Lake City
+
+Question 14: B Columbus
+
+Question 15: D Annapolis
+
+Question 16: C Providence
+
+Question 17: C Nashville
+
+Question 18: A Harrisburg
+
+Question 19: C Montgomery
+
+Question 20: A Bismarck
+
+Question 21: B Montpelier
+
+Question 22: C Juneau
+
+Question 23: C Little Rock
+
+Question 24: D Des Moines
+
+Question 25: D Dover
+
+Question 26: D Helena
+
+Question 27: B Augusta
+
+Question 28: B Sacramento
+
+Question 29: B Olympia
+
+Question 30: A Madison
+
+Question 31: C Saint Paul
+
+Question 32: B Columbia
+
+Question 33: C Baton Rouge
+
+Question 34: B Santa Fe
+
+Question 35: C Boston
+
+Question 36: B Tallahassee
+
+Question 37: B Charleston
+
+Question 38: A Denver
+
+Question 39: B Raleigh
+
+Question 40: C Boise
+
+Question 41: B Frankfort
+
+Question 42: B Pierre
+
+Question 43: A Lansing
+
+Question 44: B Austin
+
+Question 45: C Jackson
+
+Question 46: A Trenton
+
+Question 47: C Topeka
+
+Question 48: D Salem
+
+Question 49: D Lincoln
+
+Question 50: A Indianapolis
+
