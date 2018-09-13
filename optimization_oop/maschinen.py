@@ -4,14 +4,10 @@
 
 from enum import Enum
 
-class Position(Enum):
+class Aufnahme(Enum):
    FRONT = 10
    HECK = 20
    BEIDE = 30
-
-
-
-
 
 
 
@@ -59,11 +55,11 @@ class Schlepper():
 
 
     #Methode zum Anbauen eines Geraetes
-    def anbauen(self, anbaugeraet, position):
+    def anbauen(self, anbaugeraet, Aufnahme):
 
-        if position == Position.HECK and not self._anbau_heck:
+        if Aufnahme == Aufnahme.HECK and not self._anbau_heck:
             self._anbau_heck = anbaugeraet
-        elif position == Position.FRONT and not self._anbau_front:
+        elif Aufnahme == Aufnahme.FRONT and not self._anbau_front:
             self._anbau_front = anbaugeraet
         else:
             print("Geraet kann nicht angebaut werden")
@@ -72,12 +68,12 @@ class Schlepper():
 
 
 
-    def abbauen(self, position):
-        if position == Position.FRONT:
+    def abbauen(self, Aufnahme):
+        if Aufnahme == Aufnahme.FRONT:
             self.anbau_front = None
-        elif position == Position.HECK:
+        elif Aufnahme == Aufnahme.HECK:
             self.anbau_heck = None
-        elif position == Position.BEIDE:
+        elif Aufnahme == Aufnahme.BEIDE:
             self.anbau_front = None
             self.anbau_heck = None
 
@@ -87,11 +83,11 @@ class Schlepper():
 
     def update_status(self):
         if self._anbau_heck and self._anbau_front:
-            self.status = Position.BEIDE
+            self.status = Aufnahme.BEIDE
         elif self.anbau_heck:
-            self.status = Position.HECK
+            self.status = Aufnahme.HECK
         elif self.anbau_front:
-            self.status = Position.FRONT
+            self.status = Aufnahme.FRONT
 
 
     def breite(self):
@@ -145,20 +141,3 @@ class Anbaugeraet():
     @property
     def name(self):
         return self._name
-
-
-
-
-if __name__ == "__main__":
-
-    s = Schlepper("Fendt Favorit 309", 40, 10)
-    ab = Anbaugeraet("Egge", 3, 12)
-    g = Anbaugeraet("Gewicht")
-    s.anbauen(ab, Position.HECK)
-    s.anbauen(g, Position.FRONT)
-
-
-    print("Arbeitsbreite Schlepper " + s.name + ": " + str(s.breite()))
-    print("Arbeitsbreite Gespann " + s.name + " und " + s.anbau_heck.name + ": " + str(s.breite()))
-    print("Status von " + s.name + ": " + s.status)
-    print("Der Wendekreis von " + s.name + " betraegt " + str(s.wendekreis) + "m")
