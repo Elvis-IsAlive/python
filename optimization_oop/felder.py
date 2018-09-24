@@ -5,27 +5,44 @@
 import re
 
 
+Einheiten = {"m": 1, "km": 1000}
+
+
 class Feld():
     _counter = 0
 
     def __init__(self, bez, l, b):
 
-        Feld._counter += 1
+        def _standardieisereAufMeter(arg):
+            regEx_Value = re.compile("\d+")
+            regEx_Unity = re.compile("[a-zA-Z]+")
 
-        regEx_Value = re.compile("\d+")
-        regEx_Unity = re.compile("[a-zA-Z]+")
-        self._laenge = float(regEx_Value.search(l).group())
-        self._breite = float(regEx_Value.search(b).group())
+            value = float(regEx_Value.search(arg).group())
+            unity = str(regEx_Unity.search(arg).group())
+
+            if unity == "m":
+                pass
+            elif unity == "km":
+                unity *= Einheiten["m"]
+            else:
+                print("Zulässige Einheiten: m, km")
+            return value
+
+
+        Feld._counter += 1
         self._bezeichnung = bez
 
-        unity_l = regEx_Unity.search(l).group()
-        unity_b = regEx_Unity.search(b).group()
-        if unity_b == unity_l:
-            self._einheit = unity_b.lower()
-        else:
-            del self
-            print("Laenge und Breite in gleicher Einheit angeben!")
+        self._laenge = _standardieisereAufMeter(l)
+        self._breite = _standardieisereAufMeter(b)
+        self._standardEinheit = "m"
 
+    @property
+    def laenge(self):
+        return self._laenge
+
+    @property
+    def breite(self):
+        return self._breite
 
     @property
     def bezeichnung(self):
@@ -39,14 +56,18 @@ class Feld():
     def breite(self):
         return self._breite
 
-    @property
-    def flaeche(self):
-        return self._breite * self._laenge
+    # @property
+    def flaeche(self, arg = "qm"):
+        if arg == "qm":
+            return self._laenge * self._breite
+        elif arg == "qkm":
+            return self._laenge/1000 * self._breite/1000
+        elif arg == "ha":
+            return self._laenge/100 * self._breite/100
+        else:
+            print("Zulässige Einheiten: qm, ha, qkm")
+
 
     @property
-    def einheit_flaeche(self):
-        return "q" + self._einheit
-
-    @property
-    def einheit(self):
-        return self._einheit
+    def standardEinheit(self):
+            return self._standardEinheit
