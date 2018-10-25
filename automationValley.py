@@ -6,30 +6,36 @@ from selenium import webdriver
 import os, sys
 
 
-def checkForQuit(index, index_datei, msg="press q to quit or enter to go to continue"):
+def checkForQuit(msg="press q to quit or enter to go to continue"):
+    global index
     if len(msg) > 0:
         print(msg)
 
     command = str(input()).lower()
     if command == "q":
-        # speichere Index in datei
-        with open(index_datei, "w") as f:
-            f.write(str(index + 1))
-        browser.quit()      # webdriver beenden
-        quit()              # Skript beenden
+        quitScript()
     else:
         return command
 
-def checkForNav(index, index_datei, msg="press q to quit, n to go to next company or enter to continue"):
+def checkForNav(msg="press q to quit, n to go to next company or enter to continue"):
+    global index
     if len(msg) > 0:
         print(msg)
-    command = checkForQuit(index, index_datei, "")
+    command = checkForQuit("")
     if command == "n":        # nächstes Unternehmensseite auf automation-valley
         return 1
     elif command == "":         # Homeage des Unternehmens aufrufen
         return 0
 
 
+def quitScript():
+    global index, index_datei
+    # speichere Index in datei
+    with open(index_datei, "w") as f:
+        f.write(str(index))
+    print("wrote index %i to %s" % (index, index_datei))
+    browser.quit()      # webdriver beenden
+    quit()              # Skript beenden
 
 
 url_av = "http://www.automation-valley.de/firmenprofile-teilnehmer/"
@@ -64,19 +70,26 @@ for i in range(len(unternehmen)):
 
 
 
-for i in range(index, len(links_subpage)):
+try:
+    for i in range(index, len(links_subpage)):
+        index = i + 1
+        print("opening automation-valley.de page... %i of %i" %(i, len(links_subpage)))
+        browser.get(links_subpage[i])       # Unternehmensseite auf automation-valley.de
 
-    print("opening automation-valley.de page...")
-    browser.get(links_subpage[i])       # Unternehmensseite auf automation-valley.de
+        status = checkForNav()
+        if status == 1:         #  Untenehmens-Homepage überspringen und nächstes Unternehmen aufrufen
+            # print("continuing with next company...")
+            continue
 
-    status = checkForNav(i, index_datei)
-    if status == 1:         #  Untenehmens-Homepage überspringen und nächstes Unternehmen aufrufen
-        index += 1
-        # print("continuing with next company...")
-        continue
+        # Unternehmensseite
+        url = browser.find_element_by_class_name("entry-content").find_element_by_tag_name("a").get_attribute("href")
+        print("opening %s ..." %url)
+        browser.get(url)
+        checkForQuit()
 
-    # Unternehmensseite
-    url = browser.find_element_by_class_name("entry-content").find_element_by_tag_name("a").get_attribute("href")
-    print("opening %s ..." %url)
-    browser.get(url)
-    checkForQuit(index, index_datei)
+    print("list done")
+    quitScript()
+
+except Exception as e:
+    quitScript()
+    print(e)
